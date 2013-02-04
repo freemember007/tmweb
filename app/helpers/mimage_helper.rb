@@ -1,0 +1,2 @@
+module MimageHelper
+end

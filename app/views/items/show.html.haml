@@ -1,0 +1,3 @@
+.day_date_title= render "site/month_date", :date => @item.created_at
+.month_items.span12.offset2.day_content_container
+  = render "items/month_day_content", :item => @item, :type => :day

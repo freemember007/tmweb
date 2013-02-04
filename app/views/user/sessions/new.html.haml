@@ -1,0 +1,20 @@
+.session_content.span16
+  = form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => "form") do |f|
+    %fieldset
+      %legend= t("devise.sessions.sign_in")
+      .clearfix
+        = f.label :email
+        .input
+          = f.email_field :email
+      .clearfix
+        = f.label :password
+        .input
+          = f.password_field :password
+      - if devise_mapping.rememberable?
+        .clearfix
+          = f.label :remember_me
+          .input
+            = f.check_box :remember_me
+      .actions
+        = f.submit t("devise.sessions.sign_in"), :class => "btn primary"
+    = render :partial => "user/shared/links"

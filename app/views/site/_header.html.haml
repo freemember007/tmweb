@@ -1,0 +1,30 @@
+.header.row
+  .header_content.span16
+    %div{:style => "display:none;margin:66px 0px 0px 220px; position:absolute; background:#FEFFC6; height:20px; padding:5px; width: 500px;", :id => "share_c"}
+    .home_logo
+      - if @day
+        = link_to image_tag("back.png", :style => "margin-top: 5px;"), items_path(current_user.domain_name, @year, @month)
+      - else
+        = link_to image_tag("themes/white/home_logo.png"), root_path
+    .top_nav= render "site/nav"
+    - if !signed_in?
+      .login_button
+        = link_to t("devise.sessions.sign_in"), "javascript:void(0)", :class => "btn sign_in_button"
+    - elsif @day
+      = link_to image_tag("big_share.png"), "#", :class => "btn big_share"
+    - else
+      = render "users/profile"
+    :javascript
+      $(function(){
+        $(".big_share").click(function(){
+          $.ajax({
+            type: "get",
+            url: "#{new_share_url}",
+            data: "type=day&year=#{@year}&month=#{@month}&day=#{@day}",
+            success: function(data){
+              $("#share_c").html("<a href=" + data.url + ">" + data.url + "</a>");
+              $("#share_c").fadeIn();
+            }
+          });
+        });
+      });

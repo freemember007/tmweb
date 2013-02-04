@@ -1,0 +1,38 @@
+<div class="row sign_form">
+  <div class="sign_in span6 offset3" style="display: block; ">
+    <form accept-charset="UTF-8" action="/users/sign_in" data-remote="true" method="post" class="form-horizontal">
+      <div style="margin:0;padding:0;display:inline">
+      <input name="utf8" type="hidden" value="✓">
+      <input name="authenticity_token" type="hidden" value="sA/vTfZNlvzVqUYqx2t8vNI0UuAeJuQHnLKjFBaGMVg="></div>
+      <fieldset>
+        <legend>
+          <h2>登录你的时光</h2>
+        </legend>
+        <div class="control-group">
+          <label class="control-label" for="user_电子邮件">电子邮件</label>
+          <div class="controls">
+            <input id="user_email" name="user[email]" size="30" type="email">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="user_密码">密码</label>
+          <div class="controls">
+            <input id="user_password" name="user[password]" size="30" type="password">
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <input name="user[remember_me]" type="hidden" value="0">
+            <input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1">
+            记住登录状态
+          </div>
+        </div>
+        <div class="form-actions">
+          <button {{action "signIn"}} class="btn btn-success" data-loading-text="正在登录...">登录</button>
+          <a href="#" {{action "cancelSignIn"}} class="btn cancel">取消</a>
+        </div>
+      </fieldset>
+    </form>
+    <div class="sign_in_error alert-message error" style="display:none"></div>
+  </div>
+</div>

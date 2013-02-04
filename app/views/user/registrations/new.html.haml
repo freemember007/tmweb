@@ -1,0 +1,19 @@
+.session_content.span16
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+    = devise_error_messages!
+    %fieldset
+      %legend= t("devise.sessions.sign_up")
+      .clearfix
+        = f.label :email
+        .input= f.email_field :email
+      .clearfix
+        = f.label :password
+        .input= f.password_field :password
+      .clearfix
+        = f.label :password_confirmation
+        .input= f.password_field :password_confirmation
+      .clearfix
+        = f.label :domain_name
+        .input= f.text_field :domain_name
+      .actions
+        = f.submit t("devise.sessions.sign_up"), :class => "btn primary"

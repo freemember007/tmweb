@@ -1,0 +1,38 @@
+.month_item
+  - if type == :day
+    = render "site/day_date", :date => item.created_at
+  - else
+    = render "site/month_date", :date => item.created_at if type == :month and index == 0
+  
+  .month_day_content
+    - item.images.each do |img|
+      - if signed_in? and @year
+        .content_pic= link_to image_tag(img.url), item_path(current_user.domain_name, @year, item.id)
+      - else
+        .content_pic= image_tag(img.url)
+    .content_text= item.content
+  .desc
+    - if signed_in? and current_user.has_item?(item)
+      .delete{:delete_url => delete_item_url(current_user.domain_name, item.id)}
+        = link_to image_tag("delete.png"), "javascript:void(0)", :rel => "twipsy", :title => "点击删除"
+      .share{:share_url => new_share_url, :item_id => item.id}
+        = link_to image_tag("share.png"), "javascript:void(0)", :rel => "twipsy", :title => "点击分享"
+    - if type == :month
+      .time
+        = am_pm item.created_at
+        = item.created_at.strftime("%H:%m")
+  - if signed_in? and current_user.has_item?(item)
+    .share_link
+      %input{:type => "text", :class => "share_url", :disabled => "disabled"}
+      %button{:class => "btn", :disabled => "disabled"} 复制
+    .confirm_delete
+      %span 确定删除吗？
+      %button{:class => "btn info"} 取消
+      %button{:class => "btn error", "data-loading-text" => "正在删除..."} 确定
+  .clear
+  :javascript
+    $(function(){
+      $(".share_link").click(function(){
+        window.location.href = $(this).find("input[type=text]").val();
+      });
+    })

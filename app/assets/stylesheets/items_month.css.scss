@@ -1,0 +1,224 @@
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.day_date_title{
+  position: fixed;
+  margin-left: 90px;
+  margin-top: 40px;
+  z-index: 100;
+  background: #FFF;
+}
+
+.month_items{
+  margin: 40px 0px;
+  .month_item{
+    margin: 0px 0px 25px 0px;
+		border-bottom: 1px dashed #EEE;
+		position: relative;
+    .month_day{
+			position: absolute;
+    }
+    .month_day_content{
+			display: inline-block;
+      margin-left: 91px;
+      width: 518px;
+			background: #FFF;
+	    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.17);
+			border: 1px solid #CCC;
+	    position: relative;
+      .content_pic{
+				padding: 10px;
+        img{
+          width: 498px;
+        }
+      }
+      .content_text{
+        padding: 15px;
+				margin-bottom: 15px;
+				line-height: 1.8;
+      }
+    }
+		.month_day_content:before{
+			-webkit-transform: skew(-15deg) rotate(-6deg);
+	    -moz-transform: skew(-15deg) rotate(-6deg);
+	    transform: skew(-15deg) rotate(-6deg);
+	    left: 15px;
+		}
+		.month_day_content:after{
+			-webkit-transform: skew(15deg) rotate(6deg);
+	    -moz-transform: skew(15deg) rotate(6deg);
+	    transform: skew(15deg) rotate(6deg);
+	    right: 15px;
+		}
+		.month_day_content:before, .month_day_content:after{
+			width: 35%;
+	    height: 30px;
+	    content: ' ';
+
+	    @include box-shadow(0 5px 8px rgba(0, 0, 0, 0.3));
+
+	    position: absolute;
+	    bottom: 10px;
+	    z-index: -10000;
+		}
+		.desc{
+			float: left;
+      margin-left: 91px;
+      width: 518px;
+			padding: 15px 0px;
+			height: 25px;
+			.time{
+				font-style: italic;
+				color: #999;
+			}
+			.share, .delete{
+				float: right;
+				display: none;
+			}
+			.share{
+				margin-right: 10px;
+			}
+			.delete{
+				margin-right: 5px;
+			}
+		}
+		.share_link, .confirm_delete{
+			background: #feffc6;
+			padding: 3px 5px;
+			float: left;
+      margin-left: 91px;
+      width: 518px;
+			margin-bottom: 5px;
+			@include border-radius();
+			display: none;
+			line-height: 28px;
+			button{
+				float: right;
+			}
+			span{
+				display: block;
+				float: left;
+			}
+			input.share_url{
+				width: 400px;
+				margin-left: 10px;
+				border: none;
+				@include box-shadow(0px 0px);
+				@include border-radius(0px);
+				background: none;
+				text-decoration: underline;
+				cursor: pointer;
+				color: #222;
+			}
+		}
+		.confirm_delete{
+			clear: both;
+			text-align: center;
+			span{
+			  margin-left: 10px;
+			}
+			.error{
+				margin-right: 15px;
+			}
+		}
+  }
+}
+
+.month_list{
+  height: 736px;
+  position: fixed;
+  margin: 5px 0px 0px 798px;
+  background: #FFF;
+  
+  .month_numbers{
+    float: left;
+    ul{
+      list-style-type: none;
+      margin-left: 5px;
+      li{
+        .month_number{
+          width: 75px;
+          text-align: right;
+          margin: 60px 0px;
+          font-size: 20px;
+          letter-spacing: 1px;
+					position: relative;
+          a{
+            color: #777;
+          }
+					.month_number_dot{
+						width: 10px;
+						height: 10px;
+						@include border-radius(10px);
+						background: #999;
+						position: absolute;
+						left: 89px;
+						top: 5px;
+						&.current_dot{
+							background: #444;
+						}
+						@include box-shadow();
+					}
+        }
+        .current_month_number{
+          font-size: 30px;
+          font-style: bold;
+          color: #444;
+        }
+      }
+    }
+  }
+
+  .month_dash_line{
+    float: right;
+    margin-left: 18px;
+  }
+}
+
+.month_day{
+  .month_date{
+    color: #666;
+    .month_date_day{
+      font-size: 380%;
+      line-height: 52px;
+      float: left;
+			a{
+				color: #666;
+			}
+    }
+    .month_year_container{
+      float: left;
+      text-align: center;
+      margin-left: 5px;
+      .month_date_month{
+        font-size: 150%;
+        line-height: 23px;
+        margin-top: 4px;
+        a{
+					color: #666;
+				}
+      }
+      .month_date_year{
+        line-height: 20px;
+      }
+    }
+  }
+
+	.day_date{
+		background: #f3f3f3;
+		text-align: center;
+		padding: 0px 12px 0px 10px;
+		margin-left: 42px;
+		@include border-radius();
+		.am_pm{
+			h4{
+				line-height: 30px;
+				color: #333;
+			}
+		}
+		.time{
+			padding-bottom: 5px;
+			font-style: italic;
+		}
+	}
+}

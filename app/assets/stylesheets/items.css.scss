@@ -1,0 +1,66 @@
+// Place all the styles related to the photos controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+.latest_title, .month_title{
+  margin-bottom: 20px;
+}
+
+.month_title{
+  
+}
+
+.photo{
+  img{
+    height: 150px;
+  }
+}
+
+.latest{
+  margin: 50px 0px;
+  
+}
+
+.months{
+  margin-bottom: 50px;
+}
+
+.photos_block{
+  h1 {
+    position: relative;
+		text-align: center;
+		margin-bottom: 10px;
+  }
+  h1:before {
+    content: "";
+    display: block;
+    border-top: dotted 1px #999;
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 55%;
+    z-index: 1;
+  }
+  
+  h1{
+		.m_number {
+	    background: #fff;
+	    padding: 0 15px 0px 20px;
+	    position: relative;
+	    z-index: 5;
+	  }
+		.month_name{
+			font-size: 14px;
+			position: relative;
+			bottom: 1px;
+			left: -7px;
+		}
+	} 
+
+	img{
+		@include box-shadow();
+	}
+}

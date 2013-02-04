@@ -1,0 +1,17 @@
+- if current_user and !@year.nil?
+  - if @day.nil?
+    %a{:href => items_path(current_user.domain_name, @year.to_i - 1)}
+      .nav_left_button
+
+    = link_to "本年", items_path(current_user.domain_name, @now.year)
+
+    %a{:href => items_path(current_user.domain_name, @year.to_i + 1)}
+      .nav_right_button
+  - else
+    %a{:href => items_path(current_user.domain_name, @pre_date.year, @pre_date.month, @pre_date.day)}
+      .nav_left_button
+
+    = link_to "今天", items_path(current_user.domain_name, @now.year, @now.month, @now.day)
+
+    %a{:href => items_path(current_user.domain_name, @next_date.year, @next_date.month, @next_date.day)}
+      .nav_right_button

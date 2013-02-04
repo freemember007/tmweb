@@ -1,0 +1,7 @@
+- if @items and @items.any?
+  .day_date_title= render "site/month_date", :date => @items.first.created_at
+  .month_items.span12.offset2
+    - @items.each_with_index do |item, index|
+      = render "items/month_day_content", :item => item, :type => :day
+- else
+  %h5 找不到此分享，或已经被删除

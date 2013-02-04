@@ -1,0 +1,18 @@
+.user_profile
+  .user_profile_avatar= image_tag("avatar.jpg", :width => 48)
+  .user_profile_wrapper
+    .user_profile_triangle
+    .user_profile_block
+      .block_item= link_to "修改资料", "#"
+      .block_item.themes
+        %span 站点风格
+        .theme_white
+        .theme_black
+        .theme_brown
+        .clear
+      .block_item.list_or_thumb
+        %span 浏览方式
+        .show_as_list
+        .show_as_thumb
+        .clear
+      .block_item= link_to "退出", destroy_user_session_path, :method => :delete

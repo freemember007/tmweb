@@ -1,0 +1,80 @@
+// Place all the styles related to the mimage controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.layout1, .layout2{
+	background: #FFF;
+	margin-bottom: 5px;
+	.col1{
+		width: 415px;
+		float: left;
+	}
+	.col2{
+		width: 400px;
+		margin-left: 5px;
+		float: left;
+	}
+	.mimage{
+		float: left;
+		overflow: hidden;
+		background: #333;
+	}
+	.image1, .image4{
+		width: 150px;
+		height: 200px;
+		img{
+			width: 150px;
+		}
+	}
+	.image2, .image3{
+		width: 260px;
+		height: 200px;
+		margin-left: 5px;
+		img{
+			height: 200px;
+		}
+	}
+	.image3{
+		margin-left: 0px;
+		margin-top: 5px;
+	}
+	.image4{
+		margin-left: 5px;
+		margin-top: 5px;
+	}
+	.image5{
+		width: 415px;
+		height: 305px;
+		margin-top: 5px;
+		img{
+			width: 415px;
+		}
+	}
+	.image6{
+		width: 400px;
+		height: 300px;
+		img{
+			width: 400px;
+		}
+	}
+	.image7{
+		width: 400px;
+		height: 410px;
+		margin-top: 5px;
+		img{
+			height: 410px;
+		}
+	}
+}
+
+.layout2{
+	.col1{
+		width: 415px;
+		float: left;
+		margin-left: 5px;
+	}
+	.col2{
+		width: 400px;
+		float: left;
+		margin-left: 0px;
+	}
+}

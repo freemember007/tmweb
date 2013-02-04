@@ -1,0 +1,4 @@
+.day_date_title= render "site/month_date", :date => @date
+.month_items.span12.offset2.day_content_container
+  - @items.each_with_index do |item, index|
+    = render "items/month_day_content", :item => item, :type => :day

@@ -1,0 +1,52 @@
+.sign_in.span8.offset4{:style => "display:none;"}
+  = form_for("user", :url => user_session_path, :remote => true, :format => :json, :class => "form") do |f|
+    %fieldset
+      %legend
+        %h2= t("login.title")
+      .clearfix
+        = f.label t("email")
+        .input
+          = f.email_field :email
+      .clearfix
+        = f.label t("password")
+        .input
+          = f.password_field :password
+      .clearfix
+        .input
+          = f.check_box :remember_me
+          = t("login.remember")
+      .actions
+        %button{:class => "btn success", "data-loading-text" => "正在登录..."}= t("devise.sessions.sign_in")
+        %a{:class => "btn cancel", :href => "javascript:void(0)"}= t("operations.cancel")
+  .sign_in_error.alert-message.error{:style => "display:none"}
+  
+.sign_up.span8.offset4{:style => "display:none;"}
+  = form_for("user", :url => user_registration_path, :remote => true, :format => :json, :class => "form") do |f|
+    %fieldset
+      %legend= t("devise.sessions.sign_up")
+      .clearfix
+        = f.label t("email")
+        .input= f.email_field :email
+      .clearfix
+        = f.label t("password")
+        .input= f.password_field :password
+      .clearfix
+        = f.label t("password_confirmation")
+        .input= f.password_field :password_confirmation
+      .clearfix
+        = f.label t("domain_name")
+        .input= f.text_field :domain_name
+      .actions
+        %button{:class => "btn success", "data-loading-text" => "正在注册..."}= t("devise.sessions.sign_up")
+        %a{:class => "btn cancel", :href => "javascript:void(0)"}= t("operations.cancel")
+  .sign_up_error.alert-message.error{:style => "display:none"}
+.session_edit
+:javascript
+  $(function(){
+    $(".sign_in, .sign_up").find(".actions button.success").click(function(e){
+      $(this).button("loading");
+      $(".sign_in, .sign_up").find(".actions a.cancel").addClass("disabled");
+      $(this).parent().find("button.cancel").attr("disabled", "disabled");
+      $(this).parent().parent().submit();
+    });
+  });

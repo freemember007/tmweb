@@ -1,0 +1,17 @@
+<div class="body_header_wrapper">
+  <div class="container">
+    <div class="header row">
+      <div class="header_content span12">
+        <div class="home_logo">
+          <img src="assets/themes/white/home_logo.png" />
+        </div>
+        <div class="login_button">
+          <a href="#" {{action "showSignIn"}} class="btn sign_in_button">登陆</a>
+        </div>
+      </div>
+    </div>
+    {{#if signIn}}
+      {{view App.SignInView}}
+    {{/if}}
+  </div>
+</div>

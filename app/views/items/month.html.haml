@@ -1,0 +1,5 @@
+.month_items.span12.offset2
+  - @items.each do |day, items|
+    - items.each_with_index do |item, index|
+      = render "items/month_day_content", :item => item, :type => :month, :index => index
+= render "items/month_list"

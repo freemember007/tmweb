@@ -1,0 +1,27 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+zh_cn:
+  start: "开始时光"
+  email: "电子邮件"
+  password: "密码"
+  password_confirmation: "密码确认"
+  domain_name: "个性域名"
+  login:
+    title: "登录你的时光"
+    remember: "记住登录状态"
+  recent:
+    title: "最近的时光"
+  date_duration: "从%{beginning_date}至%{end_date}"
+  operations:
+    cancel: "取消"
+  error:
+    login_error: "用户名和密码不匹配"
+    registration_error: "注册失败"
+  time:
+    qingchen: "清晨"
+    shangwu: "上午"
+    zhongwu: "中午"
+    xiawu: "下午"
+    huanghun: "黄昏"
+    shenye: "深夜"

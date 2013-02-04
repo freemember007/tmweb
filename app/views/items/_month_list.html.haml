@@ -1,0 +1,45 @@
+.month_list
+  .month_dash_line= image_tag("themes/white/month_dash_line.png")
+  .month_numbers
+    %ul
+      %li
+        - month_pre3 = (@current_date - 3.month).strftime('%m')
+        - year_pre3  = (@current_date - 3.month).strftime('%Y')
+        .month_number
+          = link_to "#{month_pre3}月", items_path(current_user.domain_name, year_pre3, month_pre3)
+          .month_number_dot
+      %li
+        - month_pre2 = (@current_date - 2.month).strftime('%m')
+        - year_pre2  = (@current_date - 2.month).strftime('%Y')
+        .month_number
+          = link_to "#{month_pre2}月", items_path(current_user.domain_name, year_pre2, month_pre2)
+          .month_number_dot
+      %li
+        - month_pre1 = (@current_date - 1.month).strftime('%m')
+        - year_pre1  = (@current_date - 1.month).strftime('%Y')
+        .month_number
+          = link_to "#{month_pre1}月", items_path(current_user.domain_name, year_pre1, month_pre1)
+          .month_number_dot
+      %li
+        .month_number.current_month_number
+          = "#{@month}月"
+          .month_number_dot.current_dot
+      %li
+        - month_next1 = (@current_date + 1.month).strftime('%m')
+        - year_next1  = (@current_date + 1.month).strftime('%Y')
+        .month_number
+          = link_to "#{month_next1}月", items_path(current_user.domain_name, year_next1, month_next1)
+          .month_number_dot
+      %li
+        - month_next2 = (@current_date + 2.month).strftime('%m')
+        - year_next2  = (@current_date + 2.month).strftime('%Y')
+        .month_number
+          = link_to "#{month_next2}月", items_path(current_user.domain_name, year_next2, month_next2)
+          .month_number_dot
+      %li
+        - month_next3 = (@current_date + 3.month).strftime('%m')
+        - year_next3  = (@current_date + 3.month).strftime('%Y')
+        .month_number
+          = link_to "#{month_next3}月", items_path(current_user.domain_name, year_next3, month_next3)
+          .month_number_dot
+

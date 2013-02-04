@@ -1,0 +1,33 @@
+!!! 5
+%html
+  %head
+    %title 时光
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    :javascript
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-28509758-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    = csrf_meta_tags
+  %body
+    %script{:type => "text/x-handlebars"}
+      {{ view App.homeHeader }}
+    .body_wrapper.home_wrapper
+      .container
+        .content.row= yield
+    .snippets_wrapper
+      .container
+        .home_snippets.span12
+          .quotes_left= image_tag("themes/white/left_quote.png")
+          .quotes_right= image_tag("themes/white/right_quote.png")
+          .snippets_content 大爱！ 我尝试了无数的博客，轻博客，社交网络，但我发现它们都太强调分享了，而我只想记录我的生活，并与有限的人分享，而时光给了我这种可能。
+          .clear
+          .signature —— Blogger keso
+          .clear
+    .body_footer_wrapper
+      .container= render "home/footer"

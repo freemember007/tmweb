@@ -1,0 +1,4 @@
+.photoblock_1
+  - items.each do |item|
+    - if item.images.any?
+      .image_wrapper_1= image_tag(item.images.first.url, :width => 205)

@@ -1,0 +1,24 @@
+.latest.span14.offset1
+  .latest_title 
+    %h3= t("recent.title")
+  .photos_block
+    - @recent_items.each do |item|
+      - if item.images.any?
+        = link_to image_tag(item.images.first.url), item_path(current_user.domain_name, @year, item.id), :class => "photo"
+.clear
+.months.span14.offset1
+  - @image_by_month.each do |month, images|
+    .photos_block
+      %a{:href => items_path(current_user.domain_name, @year.to_i, month.to_i)}
+        %h1
+          %span.m_number
+            = month
+            %span.month_name 月
+    - images.each_slice(7).each_with_index do |imgs, index|
+      - if imgs.count == 7 && index % 2 == 0
+        = render "layout_7_1", :imgs => imgs
+      - elsif imgs.count == 7 && index % 2 == 1
+        = render "layout_7_2", :imgs => imgs
+      - else
+        - imgs.each do |img|
+          = link_to image_tag(img[1].url, :height => 200), item_path(current_user.domain_name, @year, img[0].id)
