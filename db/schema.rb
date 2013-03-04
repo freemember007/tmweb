@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120114174533) do
+ActiveRecord::Schema.define(:version => 20130304083622) do
 
   create_table "images", :force => true do |t|
     t.string   "name"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20120114174533) do
     t.string   "publish_type", :default => "private"
     t.integer  "share_id"
     t.string   "photo"
+    t.string   "url"
   end
 
   add_index "items", ["share_id"], :name => "index_items_on_share_id"

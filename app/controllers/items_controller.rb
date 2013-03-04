@@ -44,7 +44,7 @@ class ItemsController < ApplicationController
       @month = @month.to_i
       @year = @year.to_i
       @items = current_user.items.from_month(@year, @month).group_by{|item| item.created_at.day }
-      
+      #puts @items
       @next_year = @pre_year = @year
       @next_month = @month + 1
       @pre_month = @month - 1

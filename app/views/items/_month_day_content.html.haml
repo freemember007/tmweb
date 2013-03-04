@@ -1,8 +1,8 @@
 .month_item
   - if type == :day
     = render "site/day_date", :date => item.created_at
-  - else
-    = render "site/month_date", :date => item.created_at if type == :month and index == 0
+  - if type == :month and index == 0
+    = render "site/month_date", :date => item.created_at
   
   .month_day_content
     - item.images.each do |img|
