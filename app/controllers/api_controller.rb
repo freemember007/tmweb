@@ -22,6 +22,28 @@ class ApiController < ApplicationController
     end
   end
   
+  def fetchGallery
+    u = User.find_for_database_authentication(:email=>params[:email])
+    if u.nil?
+      render :json => {:type => :fail}
+      return
+    end
+    if u.valid_password?(params[:password])
+      year ||= Time.now.year
+      @all_items = u.items.from_year(year.to_i).group_by{|item| item.created_at.month }
+      @items = {}
+      @all_items.each do |month, items|
+        items = items.group_by{|item| item.created_at.day }
+        @items[:"#{month}"] = items
+      end
+      render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @items}
+      return
+    else
+      render :json => {:type => :fail}
+      return
+    end
+  end
+  
   def login_bak
     u = User.find_for_database_authentication(:email=>params[:email])
     if u.nil?

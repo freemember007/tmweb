@@ -3,6 +3,7 @@ Timenote::Application.routes.draw do
   match "api/login" => "api#login", :via => :post
   match "api/uploadPhoto" => "api#upload_photo", :via => :post
   match "api/publish_blog" => "api#publish_blog", :via => :post
+  match "api/fetchGallery" => "api#fetchGallery", :via => :post
 
   get "mimage/index"
 
