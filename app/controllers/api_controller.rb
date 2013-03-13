@@ -40,7 +40,7 @@ class ApiController < ApplicationController
     end
   end
   
-  def fetchGallery
+  def fetchYear
     u = User.find_for_database_authentication(:email=>params[:email])
     if u.nil?
       render :json => {:type => :fail}
@@ -54,6 +54,26 @@ class ApiController < ApplicationController
         items = items.group_by{|item| item.created_at.day }
         @items[:"#{month}"] = items
       end
+      render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @items}
+      return
+    else
+      render :json => {:type => :fail}
+      return
+    end
+  end
+  
+  def fetchRandom
+    u = User.find_for_database_authentication(:email=>params[:email])
+    if u.nil?
+      render :json => {:type => :fail}
+      return
+    end
+    if u.valid_password?(params[:password])
+      firstID = u.items.first.id
+      a = (1...firstID).to_a
+      ids = a.sample(50)
+      ids = "(" + ids.join(",") + ")"
+      @items = u.items.find_by_sql("select * from items where id in " + ids)
       render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @items}
       return
     else

@@ -10,7 +10,7 @@ class Item < ActiveRecord::Base
   
   # Recent items which are taken in the last 3 days
   scope :recent, lambda{ limit(5) }
-  
+    
   # Specific year items
   scope :from_year, lambda{ |year|
     year = Date.new(year.to_i)
