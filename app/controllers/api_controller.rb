@@ -9,11 +9,7 @@ class ApiController < ApplicationController
       return
     end
     if u.valid_password?(params[:password])
-      data = []
-      lastday = u.items.first.created_at
-      Rails.logger.info u.items.first
-      Rails.logger.info lastday
-      @items = u.items.from_month(lastday.year, lastday.month).group_by{|item| item.created_at.to_date }
+      @items = u.items.recent.group_by{|item| item.created_at.to_date }
       render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @items}
       return
     else
@@ -79,7 +75,7 @@ class ApiController < ApplicationController
     end
   end
   
-  def login_bak
+  def login_bak #先保留，有个索引(index)的东西待研究
     u = User.find_for_database_authentication(:email=>params[:email])
     if u.nil?
       render :json => {:type => :fail}
@@ -89,7 +85,6 @@ class ApiController < ApplicationController
       data = []
       lastday = u.items.first.created_at
       Rails.logger.info u.items.first
-      Rails.logger.info lastday
       @items = u.items.from_month(lastday.year, lastday.month).group_by{|item| item.created_at.day }
       @items.each do |day, items|
         items.each_with_index do |item, index|
