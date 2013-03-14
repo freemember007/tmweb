@@ -10,7 +10,13 @@ class Item < ActiveRecord::Base
   
   # Recent items which are taken in the last 3 days
   scope :recent, lambda{ limit(5) }
-    
+  
+  scope :random, lambda{ |firstID|
+    a = (1...firstID).to_a
+    ids = a.sample(50)
+    ids = "(" + ids.join(",") + ")"
+    find_by_sql("select * from items where id in " + ids)
+  }
   # Specific year items
   scope :from_year, lambda{ |year|
     year = Date.new(year.to_i)

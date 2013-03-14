@@ -70,10 +70,7 @@ class ApiController < ApplicationController
     end
     if u.valid_password?(params[:password])
       firstID = u.items.first.id
-      a = (1...firstID).to_a
-      ids = a.sample(50)
-      ids = "(" + ids.join(",") + ")"
-      @items = u.items.find_by_sql("select * from items where id in " + ids)
+      @items = u.items.random(firstID)
       render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @items}
       return
     else
