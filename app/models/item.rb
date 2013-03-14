@@ -9,7 +9,9 @@ class Item < ActiveRecord::Base
   default_scope order("created_at DESC")
   
   # Recent items which are taken in the last 3 days
-  scope :recent, lambda{ limit(20) }
+  scope :recent, lambda{ limit(5) }
+  
+  scope :recent10, lambda{ limit(10) }
   
   scope :random, lambda{ |firstID|
     a = (1...firstID).to_a
