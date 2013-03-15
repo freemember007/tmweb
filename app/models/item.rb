@@ -11,7 +11,9 @@ class Item < ActiveRecord::Base
   # Recent items which are taken in the last 3 days
   scope :recent, lambda{ limit(5) }
   
-  scope :recent10, lambda{ limit(10) }
+  scope :recent10, lambda{ |offset|
+    limit(10).offset(offset)
+  }
   
   scope :random, lambda{ |firstID|
     a = (1...firstID).to_a
