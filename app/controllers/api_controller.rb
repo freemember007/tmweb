@@ -19,6 +19,11 @@ class ApiController < ApplicationController
     end
   end
   
+  def delete # 有安全问题，待改进
+    item = Item.find params[:id]
+    item.delete
+    render :json => {:success => "true"}
+  end
   
   def fetchMonth
     u = User.find_for_database_authentication(:email=>params[:email])
