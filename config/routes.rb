@@ -1,6 +1,7 @@
 Timenote::Application.routes.draw do
   
   match "api/login" => "api#login", :via => :post
+  match "api/register" => "api#register", :via => :post
   match "api/fetchMonth" => "api#fetchMonth", :via => :post
   match "api/fetchYear" => "api#fetchYear", :via => :post
   match "api/fetchRandom" => "api#fetchRandom", :via => :post

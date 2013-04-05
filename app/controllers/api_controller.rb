@@ -2,6 +2,7 @@ class ApiController < ApplicationController
   skip_before_filter :authenticate_user!
   skip_before_filter :verify_authenticity_token
   
+  
   def login
     u = User.find_for_database_authentication(:email=>params[:email])
     if u.nil?
@@ -19,11 +20,24 @@ class ApiController < ApplicationController
     end
   end
   
+  
+  def register
+    user = User.create({:email=>params[:email], :password => params[:password], :remember_created_at => params[:remember_created_at], :domain_name => params[:domain_name], :avatar => params[:avatar]})
+    user.avatar_url = "#{root_url[0, root_url.length - 1]}#{user.avatar_url}"
+    if user.save
+      render :json => {:type => :success}
+    else
+      render :json => {:type => :fail}
+    end
+  end
+  
+  
   def delete # 有安全问题，待改进
     item = Item.find params[:id]
     item.delete
     render :json => {:success => "true"}
   end
+  
   
   def fetchMonth
     u = User.find_for_database_authentication(:email=>params[:email])
@@ -41,6 +55,7 @@ class ApiController < ApplicationController
       return
     end
   end
+  
   
   def fetchYear
     u = User.find_for_database_authentication(:email=>params[:email])
@@ -64,6 +79,7 @@ class ApiController < ApplicationController
     end
   end
   
+  
   def fetchRandom
     u = User.find_for_database_authentication(:email=>params[:email])
     if u.nil?
@@ -80,6 +96,7 @@ class ApiController < ApplicationController
       return
     end
   end
+  
   
   def login_bak #先保留，有个索引(index)的东西待研究
     u = User.find_for_database_authentication(:email=>params[:email])
@@ -126,6 +143,7 @@ class ApiController < ApplicationController
         :image => item.url, :content => content, :month => item.created_at.month, :day => item.created_at.day
     }}
   end
+  
   
   def publish_blog
     user = User.find_by_id params[:id]

@@ -3,8 +3,10 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
+  mount_uploader :avatar, PhotoUploader
+  
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :domain_name
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :domain_name, :remember_created_at, :avatar, :avatar_url #最后三个是为api register而加
   
   has_many :items
   has_many :shares
