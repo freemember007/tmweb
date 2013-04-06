@@ -25,7 +25,7 @@ class ApiController < ApplicationController
     user = User.create({:email=>params[:email], :password => params[:password], :remember_created_at => params[:remember_created_at], :domain_name => params[:domain_name], :avatar => params[:avatar]})
     user.avatar_url = "#{root_url[0, root_url.length - 1]}#{user.avatar_url}"
     if user.save
-      render :json => {:type => :success}
+      render :json => {:type => :success, :id => user.id}
     else
       render :json => {:type => :fail}
     end
