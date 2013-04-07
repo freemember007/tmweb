@@ -46,7 +46,12 @@ class ApiController < ApplicationController
       return
     end
     if u.valid_password?(params[:password])
-      lastday = u.items.first.created_at
+      first = u.items.first
+      if first
+        lastday = first.created_at 
+      else
+        lastday = Time.now
+      end
       @items = u.items.from_month(lastday.year, lastday.month).group_by{|item| item.created_at.day }
       render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @items}
       return
@@ -87,7 +92,12 @@ class ApiController < ApplicationController
       return
     end
     if u.valid_password?(params[:password])
-      firstID = u.items.first.id
+      first = u.items.first
+      if first
+        firstID = first.id 
+      else
+        firstID = 2
+      end
       @items = u.items.random(firstID)
       render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @items}
       return
