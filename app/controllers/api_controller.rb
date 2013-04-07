@@ -84,8 +84,24 @@ class ApiController < ApplicationController
     end
   end
   
-  
   def fetchRandom
+    u = User.find_for_database_authentication(:email=>params[:email])
+    if u.nil?
+      render :json => {:type => :fail}
+      return
+    end
+    if u.valid_password?(params[:password])
+      itemsID = u.items.select('id')
+      @item = Item.find(itemsID[Random.rand(itemsID.length)])
+      render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @item}
+      return
+    else
+      render :json => {:type => :fail}
+      return
+    end
+  end
+  
+  def fetchRandom_bak
     u = User.find_for_database_authentication(:email=>params[:email])
     if u.nil?
       render :json => {:type => :fail}
