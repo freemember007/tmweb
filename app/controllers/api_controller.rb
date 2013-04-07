@@ -93,7 +93,7 @@ class ApiController < ApplicationController
     if u.valid_password?(params[:password])
       itemsID = u.items.select('id')
       @item = Item.find(itemsID[Random.rand(itemsID.length)])
-      render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @item}
+      render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :item => @item}
       return
     else
       render :json => {:type => :fail}
