@@ -22,12 +22,32 @@ class ApiController < ApplicationController
   
   
   def register
-    user = User.create({:email=>params[:email], :password => params[:password], :remember_created_at => params[:remember_created_at], :domain_name => params[:domain_name], :avatar => params[:avatar]})
+    user = User.create({:email=>params[:email], :password => params[:password], :domain_name => params[:domain_name], :avatar => params[:avatar]})
     user.avatar_url = "#{root_url[0, root_url.length - 1]}#{user.avatar_url}"
     if user.save
-      render :json => {:type => :success, :id => user.id,  :avatar => u.avatar_url}
+      render :json => {:type => :success, :id => user.id,  :avatar => user.avatar_url}
     else
       render :json => {:type => :fail}
+    end
+  end
+  
+  def altAvatar
+    u = User.find_for_database_authentication(:email=>params[:email])
+    if u.nil?
+      render :json => {:type => :fail}
+      return
+    end
+    if u.valid_password?(params[:password])
+      u.avatar = params[:avatar]
+      u.avatar_url = "#{root_url[0, root_url.length - 1]}#{u.avatar_url}"
+      if u.save
+        render :json => {:type => :success, :avatar => u.avatar_url}
+      else
+        render :json => {:type => :fail}
+      end
+    else
+      render :json => {:type => :fail}
+      return
     end
   end
   
