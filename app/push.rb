@@ -2,7 +2,7 @@ require "apns"
 
 APNS.host = 'gateway.sandbox.push.apple.com'
 
-APNS.pem =  "/Users/xjp/timenotePushDev.pem"
+APNS.pem =  "lib/pem/timenotePushDev.pem"
 
 APNS.port = 2195
 
