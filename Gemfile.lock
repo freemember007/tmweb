@@ -45,6 +45,7 @@ GEM
     activesupport (3.2.1)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    apns (1.0.0)
     arel (3.0.2)
     bbenezech-nested_form (0.0.5)
     bcrypt-ruby (3.0.1)
@@ -74,6 +75,7 @@ GEM
     erubis (2.7.0)
     execjs (1.3.0)
       multi_json (~> 1.0)
+    grocer (0.3.4)
     haml (3.1.4)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -178,12 +180,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  apns
   bootstrap-sass
   carrierwave
   coffee-rails (~> 3.2.1)
   devise
   draper
   ember-rails
+  grocer
   haml-rails
   jquery-rails
   mysql2

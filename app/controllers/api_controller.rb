@@ -12,7 +12,7 @@ class ApiController < ApplicationController
     if u.valid_password?(params[:password])
       offset = params[:offset]
       @items = u.items.recent10(offset).group_by{|item| item.created_at.to_date }
-      render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @items}
+      render :json => {:type => :success, :id => u.id, :avatar => u.avatar_url, :email => params[:email], :password => params[:password], :items => @items}
       return
     else
       render :json => {:type => :fail}
@@ -25,7 +25,7 @@ class ApiController < ApplicationController
     user = User.create({:email=>params[:email], :password => params[:password], :remember_created_at => params[:remember_created_at], :domain_name => params[:domain_name], :avatar => params[:avatar]})
     user.avatar_url = "#{root_url[0, root_url.length - 1]}#{user.avatar_url}"
     if user.save
-      render :json => {:type => :success, :id => user.id}
+      render :json => {:type => :success, :id => user.id,  :avatar => u.avatar_url}
     else
       render :json => {:type => :fail}
     end

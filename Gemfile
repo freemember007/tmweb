@@ -19,6 +19,8 @@ gem 'devise'
 gem 'mysql2'
 gem 'carrierwave'
 gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
+gem 'grocer'
+gem 'apns'
 
 group :development do
 	gem 'sqlite3'
