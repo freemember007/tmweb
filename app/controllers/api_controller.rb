@@ -209,12 +209,13 @@ class ApiController < ApplicationController
     APNS.host = 'gateway.sandbox.push.apple.com'
     APNS.pem =  "lib/pem/timenotePushDev.pem"
     APNS.port = 2195
-    for friendID in friendsID
+    for friendID in friendsID # 不需判断friendsID是否为空，如果friendsID为空的话，下面的都不会被执行
       p2pshare = P2pshare.create({:user_id => friendID, :item_id => item.id})
       friend = User.find_by_id friendID
       device_token = friend.device_token
-      if device_token != nil
-      APNS.send_notification(device_token, :alert => user.domain_name + '分享了一张照片给你。', :badge => 11, :sound => 'default', :other => {:sent => 'with apns gem'})
+      if device_token.length > 5 # 其实只是为了判断是否为空，!=nil不包括空字符，有什么更好办法？
+        Rails.logger.info "+++++++++++ device_token有效 +++++++++++"
+        APNS.send_notification(device_token, :alert => user.domain_name + '分享了一张照片给你。', :badge => 0, :sound => 'default', :other => {:sent => 'with apns gem'})
       end
     end
   end
