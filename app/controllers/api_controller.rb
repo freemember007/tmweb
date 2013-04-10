@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class ApiController < ApplicationController
   skip_before_filter :authenticate_user!
   skip_before_filter :verify_authenticity_token
@@ -197,14 +199,24 @@ class ApiController < ApplicationController
     item.url = "#{root_url[0, root_url.length - 1]}#{item.photo_url}"
     item.save
     img = Image.create({:url => "#{root_url[0, root_url.length - 1]}#{item.photo_url}", :item => item})
-    pp img 
-    puts DateTime.now
     content = "null"
     content = item.content if !item.content.nil? && item.content.length > 0
-    
     render :json => {:type => :success, :item => {
         :image => item.url, :content => content, :month => item.created_at.month, :day => item.created_at.day
     }}
+    friendsID = params[:friendsID].split(",")
+    require "apns"
+    APNS.host = 'gateway.sandbox.push.apple.com'
+    APNS.pem =  "lib/pem/timenotePushDev.pem"
+    APNS.port = 2195
+    for friendID in friendsID
+      p2pshare = P2pshare.create({:user_id => friendID, :item_id => item.id})
+      friend = User.find_by_id friendID
+      device_token = friend.device_token
+      if device_token != nil
+      APNS.send_notification(device_token, :alert => user.domain_name + '分享了一张照片给你。', :badge => 11, :sound => 'default', :other => {:sent => 'with apns gem'})
+      end
+    end
   end
   
   
