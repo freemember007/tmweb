@@ -20,7 +20,7 @@ class ApiController < ApplicationController
   
   
   def register
-    user = User.create({:email=>params[:email], :password => params[:password], :domain_name => params[:domain_name], :avatar => params[:avatar]})
+    user = User.create({:email=>params[:email], :password => params[:password], :domain_name => params[:domain_name], :avatar => params[:avatar], :device_token => params[:device_token]})
     user.avatar_url = "#{root_url[0, root_url.length - 1]}#{user.avatar_url}"
     if user.save
       render :json => {:type => :success, :id => user.id,  :avatar => user.avatar_url}
