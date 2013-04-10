@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, PhotoUploader
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :domain_name, :remember_created_at, :avatar, :avatar_url #最后三个是为api register而加
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :domain_name, :avatar, :avatar_url, :device_token #构造子属性，作用于create时。
   
   has_many :items
   has_many :shares
