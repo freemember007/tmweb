@@ -10,6 +10,8 @@ class ApiController < ApplicationController
       return
     end
     if u.valid_password?(params[:password])
+      u.device_token = params[:device_token]
+      u.save
       offset = params[:offset]
       @items = u.items.recent10(offset).group_by{|item| item.created_at.to_date }
       render :json => {:type => :success, :id => u.id, :avatar => u.avatar_url, :email => params[:email], :password => params[:password], :items => @items}

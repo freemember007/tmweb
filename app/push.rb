@@ -10,7 +10,7 @@ APNS.port = 2195
 
 device_token = "652ecbc39b5f86e12865aed6ad3d687511eb16e64b480f9dbeef04156fd29e74"
 
-APNS.send_notification(device_token, :alert => 'shy分享了一张照片给你。', :badge => 1, :sound => 'default', :other => {:sent => 'with apns gem'})
+APNS.send_notification(device_token, :alert => 'shy分享了一张照片给你。', :badge => 11, :sound => 'default', :other => {:sent => 'with apns gem'})
 
 =begin
 require "grocer"

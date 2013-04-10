@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   
   has_many :items
   has_many :shares
+  has_many :p2pshares
   
   validates_presence_of :domain_name
   validates_uniqueness_of :domain_name

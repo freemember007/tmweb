@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130403034118) do
+ActiveRecord::Schema.define(:version => 20130410032359) do
 
   create_table "images", :force => true do |t|
     t.string   "name"
@@ -37,6 +37,16 @@ ActiveRecord::Schema.define(:version => 20130403034118) do
 
   add_index "items", ["share_id"], :name => "index_items_on_share_id"
   add_index "items", ["user_id"], :name => "index_items_on_user_id"
+
+  create_table "p2pshares", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "p2pshares", ["item_id"], :name => "index_p2pshares_on_item_id"
+  add_index "p2pshares", ["user_id"], :name => "index_p2pshares_on_user_id"
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
@@ -76,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20130403034118) do
     t.string   "domain_name"
     t.string   "avatar"
     t.string   "avatar_url"
+    t.string   "device_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

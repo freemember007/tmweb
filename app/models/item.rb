@@ -1,6 +1,7 @@
 class Item < ActiveRecord::Base
 
   has_many :images
+  has_many :p2pshares
   belongs_to :user
   belongs_to :share
   
