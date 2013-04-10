@@ -12,13 +12,9 @@ class ApiController < ApplicationController
     if u.valid_password?(params[:password])
       u.device_token = params[:device_token]
       u.save
-      offset = params[:offset]
-      @items = u.items.recent10(offset).group_by{|item| item.created_at.to_date }
-      render :json => {:type => :success, :id => u.id, :avatar => u.avatar_url, :email => params[:email], :password => params[:password], :items => @items}
-      return
+      render :json => {:type => :success, :id => u.id, :avatar => u.avatar_url}
     else
       render :json => {:type => :fail}
-      return
     end
   end
   
@@ -60,6 +56,21 @@ class ApiController < ApplicationController
     render :json => {:success => "true"}
   end
   
+  
+  def fetchBlog
+    u = User.find_for_database_authentication(:email=>params[:email])
+    if u.nil?
+      render :json => {:type => :fail}
+      return
+    end
+    if u.valid_password?(params[:password])
+      offset = params[:offset]
+      @items = u.items.recent10(offset).group_by{|item| item.created_at.to_date }
+      render :json => {:type => :success, :items => @items}
+    else
+      render :json => {:type => :fail}
+    end
+  end
   
   def fetchMonth
     u = User.find_for_database_authentication(:email=>params[:email])
