@@ -1,7 +1,7 @@
 class Item < ActiveRecord::Base
 
   has_many :images
-  has_many :p2pshares
+  has_many :p2pshares, :dependent => :destroy # 貌似不起作用
   belongs_to :user
   belongs_to :share
   

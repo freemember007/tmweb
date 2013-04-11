@@ -140,6 +140,22 @@ class ApiController < ApplicationController
     end
   end
   
+  def fetchSharetome
+    u = User.find(params[:id])
+    p2pshares = u.p2pshares.recent # 貌似不能选ID，否则后面会出错。但多次查询，效率如何提升？ 考虑不走关系，直接按ID查询
+    users = []
+    items = []
+    p2pshares.each do |p2pshare|
+      item = p2pshare.item
+      if item != nil
+        items << item
+        user = item.user
+        users << user
+      end
+    end
+    render :json => {:type => :success, :users => users, :items => items}
+  end
+  
   def fetchRandom_bak
     u = User.find_for_database_authentication(:email=>params[:email])
     if u.nil?
@@ -213,7 +229,7 @@ class ApiController < ApplicationController
       p2pshare = P2pshare.create({:user_id => friendID, :item_id => item.id})
       friend = User.find_by_id friendID
       device_token = friend.device_token
-      if device_token.length > 5 # 其实只是为了判断是否为空，!=nil不包括空字符，有什么更好办法？
+      if device_token.length > 5 # 其实只是为了判断是否为空，!=nil不包括空字符，有什么更好办法？这样为nil时又会出错！
         Rails.logger.info "++++有效++++"
         APNS.send_notification(device_token, :alert => user.domain_name + '分享了一张照片给你。', :badge => 0, :sound => 'default', :other => {:sent => 'with apns gem'})
       end
