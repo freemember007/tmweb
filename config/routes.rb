@@ -11,6 +11,7 @@ Timenote::Application.routes.draw do
   match "api/uploadPhoto" => "api#upload_photo", :via => :post
   match "api/publish_blog" => "api#publish_blog", :via => :post
   match "api/delete" => "api#delete", :via => :get
+  match "api/userInfo" => "api#userInfo", :via => :get
 
   get "mimage/index"
 

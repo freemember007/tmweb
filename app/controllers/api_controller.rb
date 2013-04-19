@@ -14,7 +14,7 @@ class ApiController < ApplicationController
     if u.valid_password?(params[:password])
       u.device_token = params[:device_token]
       u.save
-      render :json => {:type => :success, :id => u.id, :avatar => u.avatar_url}
+      render :json => {:type => :success, :id => u.id, :domain_name => u.domain_name, :avatar => u.avatar_url}
     else
       render :json => {:type => :fail}
     end
@@ -25,7 +25,7 @@ class ApiController < ApplicationController
     user = User.create({:email=>params[:email], :password => params[:password], :domain_name => params[:domain_name], :avatar => params[:avatar], :device_token => params[:device_token]})
     user.avatar_url = "#{root_url[0, root_url.length - 1]}#{user.avatar_url}"
     if user.save
-      render :json => {:type => :success, :id => user.id,  :avatar => user.avatar_url}
+      render :json => {:type => :success, :id => user.id,  :domain_name => u.domain_name, :avatar => user.avatar_url}
     else
       render :json => {:type => :fail}
     end
@@ -51,11 +51,20 @@ class ApiController < ApplicationController
     end
   end
   
+  def userInfo
+    u = User.find_for_database_authentication(:domain_name=>params[:domain_name])
+    if u.nil?
+      render :json => {:success => false}
+    else
+      render :json => {:success => true, :uid => u.id, :domain_name => u.domain_name, :avatar => u.avatar_url}
+    end
+  end
+  
   
   def delete # 有安全问题，待改进
     item = Item.find params[:id]
     item.delete
-    render :json => {:success => "true"}
+    render :json => {:success => true}
   end
   
   
