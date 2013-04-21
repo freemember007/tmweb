@@ -25,7 +25,7 @@ class ApiController < ApplicationController
     user = User.create({:email=>params[:email], :password => params[:password], :domain_name => params[:domain_name], :avatar => params[:avatar], :device_token => params[:device_token]})
     user.avatar_url = "#{root_url[0, root_url.length - 1]}#{user.avatar_url}"
     if user.save
-      render :json => {:type => :success, :id => user.id,  :domain_name => u.domain_name, :avatar => user.avatar_url}
+      render :json => {:type => :success, :id => user.id,  :domain_name => user.domain_name, :avatar => user.avatar_url}
     else
       render :json => {:type => :fail}
     end
@@ -47,7 +47,6 @@ class ApiController < ApplicationController
       end
     else
       render :json => {:type => :fail}
-      return
     end
   end
   
@@ -98,10 +97,8 @@ class ApiController < ApplicationController
       end
       @items = u.items.from_month(lastday.year, lastday.month).group_by{|item| item.created_at.day }
       render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @items}
-      return
     else
       render :json => {:type => :fail}
-      return
     end
   end
   
@@ -121,10 +118,8 @@ class ApiController < ApplicationController
         @items[:"#{month}"] = items
       end
       render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @items}
-      return
     else
       render :json => {:type => :fail}
-      return
     end
   end
   
@@ -142,10 +137,8 @@ class ApiController < ApplicationController
         @item = ""
       end
       render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :item => @item}
-      return
     else
       render :json => {:type => :fail}
-      return
     end
   end
   
@@ -180,10 +173,8 @@ class ApiController < ApplicationController
       end
       @items = u.items.random(firstID)
       render :json => {:type => :success, :id => u.id, :email => params[:email], :password => params[:password], :items => @items}
-      return
     else
       render :json => {:type => :fail}
-      return
     end
   end
   
