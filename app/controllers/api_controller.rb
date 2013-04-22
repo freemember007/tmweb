@@ -213,26 +213,25 @@ class ApiController < ApplicationController
     item = Item.create({:photo => params[:photo], :content => params[:content], :user => user })
     Rails.logger.info item.photo_url
     item.url = "#{root_url[0, root_url.length - 1]}#{item.photo_url}"
-    item.save
-    img = Image.create({:url => "#{root_url[0, root_url.length - 1]}#{item.photo_url}", :item => item})
-    content = "null"
-    content = item.content if !item.content.nil? && item.content.length > 0
-    render :json => {:type => :success, :item => {
-        :image => item.url, :content => content, :month => item.created_at.month, :day => item.created_at.day
-    }}
-    friendsID = params[:friendsID].split(",")
-    require "apns"
-    APNS.host = 'gateway.sandbox.push.apple.com'
-    APNS.pem =  "lib/pem/timenotePushDev.pem"
-    APNS.port = 2195
-    for friendID in friendsID # 不需判断friendsID是滞为空，如果friendsID为空的话，下面的都不会被执行
-      p2pshare = P2pshare.create({:user_id => friendID, :item_id => item.id})
-      friend = User.find_by_id friendID
-      device_token = friend.device_token
-      if device_token.length > 5 # 其实只是为了判断是否为空，!=nil不包括空字符，有什么更好办法？这样为nil时又会出错！
-        Rails.logger.info "++++有效++++"
-        APNS.send_notification(device_token, :alert => user.domain_name + '分享了一张照片给你。', :badge => 1, :sound => 'default', :other => {:sent => 'with apns gem'})
+    if item.save
+      render :json => {:type => :success}
+      img = Image.create({:url => "#{root_url[0, root_url.length - 1]}#{item.photo_url}", :item => item})
+      friendsID = params[:friendsID].split(",")
+      require "apns"
+      APNS.host = 'gateway.sandbox.push.apple.com'
+      APNS.pem =  "lib/pem/timenotePushDev.pem"
+      APNS.port = 2195
+      for friendID in friendsID # 不需判断friendsID是滞为空，如果friendsID为空的话，下面的都不会被执行
+        p2pshare = P2pshare.create({:user_id => friendID, :item_id => item.id})
+        friend = User.find_by_id friendID
+        device_token = friend.device_token
+        if device_token.length > 5 # 其实只是为了判断是否为空，!=nil不包括空字符，有什么更好办法？这样为nil时又会出错！
+          Rails.logger.info "++++有效++++"
+          APNS.send_notification(device_token, :alert => user.domain_name + '分享了一张照片给你。', :badge => 1, :sound => 'default', :other => {:sent => 'with apns gem'})
+        end
       end
+    else
+      render :json => {:type => :fail}
     end
   end
   
