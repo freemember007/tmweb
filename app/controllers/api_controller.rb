@@ -6,7 +6,11 @@ class ApiController < ApplicationController
   
   
   def login
-    u = User.find_for_database_authentication(:email=>params[:email])
+    if params[:email].match("@")
+      u = User.find_for_database_authentication(:email=>params[:email])
+    else
+      u = User.find_for_database_authentication(:domain_name=>params[:email])
+    end
     if u.nil?
       render :json => {:type => :fail}
       return
@@ -14,7 +18,7 @@ class ApiController < ApplicationController
     if u.valid_password?(params[:password])
       u.device_token = params[:device_token]
       u.save
-      render :json => {:type => :success, :id => u.id, :domain_name => u.domain_name, :avatar => u.avatar_url}
+      render :json => {:type => :success, :id => u.id, :email => u.email, :domain_name => u.domain_name, :avatar => u.avatar_url}
     else
       render :json => {:type => :fail}
     end
@@ -155,6 +159,7 @@ class ApiController < ApplicationController
         users << user
       end
     end
+    Rails.logger.info items
     render :json => {:type => :success, :users => users, :items => items}
   end
   
