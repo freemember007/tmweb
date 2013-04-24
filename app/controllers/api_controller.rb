@@ -57,9 +57,9 @@ class ApiController < ApplicationController
   def userInfo
     u = User.find_for_database_authentication(:domain_name=>params[:domain_name])
     if u.nil?
-      render :json => {:success => false}
+      render :json => {:type => :fail}
     else
-      render :json => {:success => true, :uid => u.id, :domain_name => u.domain_name, :avatar => u.avatar_url}
+      render :json => {:type => :success, :uid => u.id, :domain_name => u.domain_name, :avatar => u.avatar_url}
     end
   end
   
@@ -67,7 +67,7 @@ class ApiController < ApplicationController
   def delete # 有安全问题，待改进
     item = Item.find params[:id]
     item.delete
-    render :json => {:success => true}
+    render :json => {:type => :success}
   end
   
   
