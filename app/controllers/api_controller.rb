@@ -232,7 +232,7 @@ class ApiController < ApplicationController
         device_token = friend.device_token
         if device_token.length > 5 # 其实只是为了判断是否为空，!=nil不包括空字符，有什么更好办法？这样为nil时又会出错！
           Rails.logger.info "++++有效++++"
-          APNS.send_notification(device_token, :alert => user.domain_name + '分享了一张照片给你。', :badge => 1, :sound => 'default', :other => {:sent => 'with apns gem'})
+          APNS.send_notification(device_token, :alert => user.domain_name + '分享了一则时光给你。', :badge => 1, :sound => 'default', :other => {:sent => 'with apns gem'})
         end
       end
     else
