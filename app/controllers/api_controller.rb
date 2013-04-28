@@ -241,6 +241,26 @@ class ApiController < ApplicationController
   end
   
   
+  
+  def share
+    friendsID = params[:friendsID].split(",")
+    require "apns"
+    APNS.host = 'gateway.sandbox.push.apple.com'
+    APNS.pem =  "lib/pem/timenotePushDev.pem"
+    APNS.port = 2195
+    for friendID in friendsID # 不需判断friendsID是滞为空，如果friendsID为空的话，下面的都不会被执行
+      p2pshare = P2pshare.create({:user_id => friendID, :item_id => params[:itemID]})
+      friend = User.find_by_id friendID
+      device_token = friend.device_token
+      if device_token.length > 5 # 其实只是为了判断是否为空，!=nil不包括空字符，有什么更好办法？这样为nil时又会出错！
+        Rails.logger.info "++++有效++++"
+        APNS.send_notification(device_token, :alert => params[:domain_name] + '分享了一则时光给你。', :badge => 1, :sound => 'default', :other => {:sent => 'with apns gem'})
+      end
+    end
+    render :json => {:type => :success}
+  end
+    
+  
   def publish_blog
     user = User.find_by_id params[:id]
     item = Item.create({:content => params[:content], :user => user})

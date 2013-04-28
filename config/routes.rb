@@ -9,6 +9,7 @@ Timenote::Application.routes.draw do
   match "api/fetchRandom" => "api#fetchRandom", :via => :post
   match "api/fetchSharetome" => "api#fetchSharetome", :via => :post
   match "api/uploadPhoto" => "api#upload_photo", :via => :post
+  match "api/share" => "api#share", :via => :post
   match "api/publish_blog" => "api#publish_blog", :via => :post
   match "api/delete" => "api#delete", :via => :post
   match "api/userInfo" => "api#userInfo", :via => :post
