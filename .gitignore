@@ -1,9 +1,9 @@
 .bundle
-db/*.sqlite3
-log/*.log
+*.sqlite3
+*.log
 tmp/
 .sass-cache/
 public/uploads/*
 public/assets/*
-*.DS_Store
 .DS_Store
+vendor

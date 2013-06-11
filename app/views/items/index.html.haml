@@ -4,7 +4,7 @@
   .photos_block
     - @recent_items.each do |item|
       - if item.images.any?
-        = link_to image_tag(item.images.first.url), item_path(current_user.domain_name, @year, item.id), :class => "photo"
+        = link_to image_tag(item.url), item_path(current_user.domain_name, @year, item.id), :class => "photo"
 .clear
 .months.span14.offset1
   - @image_by_month.each do |month, images|

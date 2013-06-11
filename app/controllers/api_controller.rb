@@ -217,14 +217,15 @@ class ApiController < ApplicationController
     user = User.find_by_id params[:id]
     item = Item.create({:photo => params[:photo], :content => params[:content], :user => user })
     Rails.logger.info item.photo_url
-    item.url = "#{root_url[0, root_url.length - 1]}#{item.photo_url}"
+    item.url = "#{item.photo_url}"
+    Rails.logger.info item.url
     if item.save
       render :json => {:type => :success}
       img = Image.create({:url => "#{root_url[0, root_url.length - 1]}#{item.photo_url}", :item => item})
       friendsID = params[:friendsID].split(",")
       require "apns"
-      APNS.host = 'gateway.sandbox.push.apple.com'
-      APNS.pem =  "lib/pem/timenotePushDev.pem"
+      APNS.host = 'gateway.push.apple.com'
+      APNS.pem =  "lib/pem/timenotePushPro.pem"
       APNS.port = 2195
       for friendID in friendsID # 不需判断friendsID是滞为空，如果friendsID为空的话，下面的都不会被执行
         p2pshare = P2pshare.create({:user_id => friendID, :item_id => item.id})
@@ -245,8 +246,8 @@ class ApiController < ApplicationController
   def share
     friendsID = params[:friendsID].split(",")
     require "apns"
-    APNS.host = 'gateway.sandbox.push.apple.com'
-    APNS.pem =  "lib/pem/timenotePushDev.pem"
+    APNS.host = 'gateway.push.apple.com'
+    APNS.pem =  "lib/pem/timenotePushPro.pem"
     APNS.port = 2195
     for friendID in friendsID # 不需判断friendsID是滞为空，如果friendsID为空的话，下面的都不会被执行
       p2pshare = P2pshare.create({:user_id => friendID, :item_id => params[:itemID]})

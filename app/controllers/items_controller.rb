@@ -34,7 +34,7 @@ class ItemsController < ApplicationController
       @all_items.each do |month, items|
         images = []
         items.each do |item|
-          images << [item, item.images.first] if item.images.any?
+          images << [item, item]
         end
         @image_by_month[month] = images
       end
